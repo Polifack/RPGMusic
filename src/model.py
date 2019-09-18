@@ -3,31 +3,59 @@ import wave
 import sys
 import threading
 import time
+import queue
+import logging
+import math
 
 CHUNK = 1024
+
+class PlayStream():
+    def __init__(self, player, wav, poll, progr, name):
+        self.stream = player.open(format = player.get_format_from_width(wav.getsampwidth()),
+            channels = wav.getnchannels(), 
+            rate=wav.getframerate(), 
+            output=True)
+        self.file = wav
+        self.data = wav.readframes(CHUNK)
+        self.poll = poll
+        self.progr = progr
+        self.name = name
+    
+    def play(self):
+        #nota: b'' es el archivo final de un wav
+        while (self.data != b'' and not self.poll[self.name]):
+            self.stream.write(self.data)
+            self.data = self.file.readframes(CHUNK)
+            self.progr[self.name] = self.file.tell() / self.file.getnframes()
+        #Indicamos en el hash que se ha acabado
+        self.progr[self.name] = 0
+        self.poll[self.name] = True
 
 class Model:
     def __init__(self):
         self.p = pyaudio.PyAudio()
-
-    def playAudio(self, wf):
-        stream = self.p.open(format=self.p.get_format_from_width(wf.getsampwidth()), channels=wf.getnchannels(), rate=wf.getframerate(), output=True)
-        data = wf.readframes(CHUNK)
-        #Enviamos al stream de audio abierto los datos que se estan leyendo
-        while data != '':
-            stream.write(data)
-            data = wf.readframes(CHUNK)
-
-        stream.stop_stream()
-        stream.close()
+        #Tabla hash para guardar los estados de los threads que se ejecutan
+        self.runhash = dict()
+        self.proghash = dict()
+    
+    def create_playstream(self, wf, name):
+        aud = PlayStream(self.p, wf, self.runhash, self.proghash, name)
+        aud.play()
 
     def play(self, name):
+        #Indicamos que el thread 'name' está running
+        self.runhash[name] = False
+        self.proghash[name] = 0
+        
+        #Iniciamos el thread
         wf = wave.open(name, 'rb')
-        #Empezamos la reproducción en un nuevo thread
-        t = threading.Thread(target=self.playAudio, args=(wf,), daemon=True)
+        t = threading.Thread(target = self.create_playstream, args = (wf, name), daemon = True)
+        
         t.start()
 
-
+    def stop(self, name):
+        self.runhash[name] = True
+        self.proghash[name] = 0
 
 
 
