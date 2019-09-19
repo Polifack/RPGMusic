@@ -8,6 +8,7 @@ class TrackPlayer:
         #Play/Pause button
         self.play_button = Gtk.Button(label = self.state)
         self.play_button.connect('clicked', self.execute_function)
+        self.play_button.set_sensitive(False)
         
         #Progress bar
         self.play_progress = Gtk.ProgressBar()
@@ -48,11 +49,21 @@ class View:
     def __init__(self):
         ##TRACK PLAYER
         self.player = TrackPlayer()
+        self.file_button = Gtk.Button(label = "Open File Manager")
+
+        self.main_window = Gtk.Box(spacing=6,orientation=Gtk.Orientation.VERTICAL)
+        self.main_window.pack_start(self.file_button, False, False, 0)
+        self.main_window.pack_start(self.player.track_player, False, False, 0)
 
         self.win = Gtk.Window(title="RolPlayer")
-        self.win.add(self.player.track_player)
+        self.win.add(self.main_window)
         self.win.connect("destroy", Gtk.main_quit)
         self.win.show_all()
 
     def connect(self, handler):
         self.player.connect(handler.on_play_clicked, handler.on_stop_clicked)
+        self.file_button.connect('clicked',handler.on_files_clicked)
+    
+    def enable_button(self):
+        print ("enabling button...")
+        self.player.play_button.set_sensitive(True)
