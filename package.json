@@ -1,0 +1,73 @@
+{
+  "name": "rpg-player",
+  "version": "0.1",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "private": true,
+  "scripts": {
+    "start": "yarn start:electron",
+    "start:web": "env-cmd -f .env.web craco start --config craco.config.web.js",
+    "start:electron": "electron .",
+    "start:electron-dev": "electron electron-dev.js",
+    "build": "yarn build:electron",
+    "build:web": "craco build --config craco.config.web.js",
+    "build:electron": "env-cmd -f .env.electron craco build --config craco.config.electron.js",
+    "watch:electron": "npm-watch",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "watch": {
+    "build:electron": "src/**/*.*"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "bootstrap": "^4.1.1",
+    "browserify-fs": "^1.0.0",
+    "core-js": "^2.5.7",
+    "fs": "0.0.1-security",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3",
+    "@craco/craco": "^5.2.1",
+    "@types/jest": "24.0.13",
+    "@types/node": "12.0.3",
+    "@types/react": "16.8.19",
+    "@types/react-dom": "16.8.4",
+    "env-cmd": "^9.0.2",
+    "npm-watch": "^0.6.0",
+    "dataurl": "^0.1.0",
+    "react": "^16.8.6",
+    "react-sound": "^1.2.0",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "electron-builder": "^20.41.0",
+    "electron": "^5.0.2"
+  },
+  "build": {
+    "appId": "com.rpgPlayer.app",
+    "productName": "RPG Music Player",
+    "win":{
+      "icon": "./public/favicon.ico",
+      "target": [ "portable" ]
+    }
+  },
+  "win":{
+    "icon": "./public/favicon.ico",
+    "target": [ "portable" ]
+  },
+  "author": "poli polifack@gmail.com",
+  "license": "MIT"
+}

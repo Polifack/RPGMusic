@@ -1,0 +1,89 @@
+:root {
+    --main-bg-color: #464646;
+    --music-bg-color: #8c8c8c;
+    --sfx-bg-color: #afafaf;
+    --button-color: black;
+    --button-hover-color: white;
+    --button-disabled-color: grey;
+    --enabled-color: #4c7d50;
+}
+  
+
+.bg {
+    background-color: var(--main-bg-color);
+    overflow: hide;
+    width: 100vw;
+    height: 100vh;
+  }
+
+.iconButton {
+    border: none;
+    background: none;
+    color: var(--button-color);
+    cursor: pointer;
+    vertical-align: bottom;
+}
+   
+.iconButton:hover {
+    color: var(--button-hover-color);
+}
+
+.iconButton:disabled{
+    color: var(--button-disabled-color);
+    cursor: default;
+}
+
+.iconButton:focus{
+    outline: none;
+}
+
+.iconEnabled{
+    color: var(--enabled-color);
+}
+
+.input{
+    width: 65%;
+    margin-right: 5%;
+    border: none;
+    border-bottom: 1px solid;
+    background: transparent;
+    border-color: var(--enabled-color);
+}
+
+.input:focus{
+    outline: none;
+}
+
+.progress {
+    background: var( --music-bg-color); 
+    border: 1px solid  var(--main-bg-color); 
+    border-radius: 5px; 
+    height: 10px;
+    margin-top:5px; 
+    margin-right:5px
+}
+.progress-bar{
+    background: var(--enabled-color)
+}
+
+.musicTab {
+    background: var(--music-bg-color);
+    height: 85vh;
+    overflow: auto;
+}
+
+.sfxTab {
+    background: var(--sfx-bg-color);
+    height: 85vh;
+    overflow: auto;
+}
+
+.mainContainer{
+    width: 80vw;
+}
+
+.tabHeader{
+    color: white;
+    font-size: 30px;
+    margin-left: 2vw;
+}
