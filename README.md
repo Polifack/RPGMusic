@@ -13,7 +13,7 @@ Developed with Atom and React
 
 ### Build from source
 
-`$ yarn install`
-`$ yarn build:electron`
-`$ yarn dist`
+$ yarn install
+$ yarn build:electron
+$ yarn dist
 
