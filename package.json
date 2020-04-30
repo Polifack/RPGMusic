@@ -36,7 +36,7 @@
     "browserify-fs": "^1.0.0",
     "core-js": "^2.5.7",
     "fs": "0.0.1-security",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.14.3",
     "@craco/craco": "^5.2.1",
     "@types/jest": "24.0.13",
